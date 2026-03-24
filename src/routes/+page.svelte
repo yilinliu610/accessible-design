@@ -33,22 +33,22 @@
 		lastName = item.lastName;
 		age = item.age;
 	}
-
-  function cancelEdit() {
+	
+	function cancelEdit() {
 		editId = null;
 		firstName = '';
 		lastName = '';
 		age = '';
 	}
-	
-	function deleteItem(id) {
+
+  function deleteItem(id) {
 		const index = items.findIndex(i => i.id === id);
 		if (index !== -1) {
 			items.splice(index, 1);
 		}
 	}
 
-  function handleSubmit(event) {
+	function handleSubmit(event) {
 		event.preventDefault();
 		
 		if (editId) {
@@ -64,84 +64,151 @@
 	}
 </script>
 
-<div class="max-w-3xl mx-auto p-5 font-sans">
-	<h1 class="text-2xl font-bold mb-5">CRUD</h1>
+<div class="container">
+	<h1>CRUD (Vanilla CSS)</h1>
 
-	<div class="bg-white border border-gray-200 p-5 rounded-lg mb-5 shadow-sm">
-		<h2 class="text-xl font-semibold mb-3">{editId ? 'Edit Person' : 'Add Person'}</h2>
+	<div class="card">
+		<h2>{editId ? 'Edit Person' : 'Add Person'}</h2>
 		<form onsubmit={handleSubmit}>
-			<div class="mb-3">
-				<label for="fname" class="block mb-1 font-bold text-gray-700">First Name</label>
-				<input id="fname" type="text" bind:value={firstName} required 
-                    class="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none" />
+			<div class="form-group">
+				<label for="fname">First Name</label>
+				<input id="fname" type="text" bind:value={firstName} required />
 			</div>
 			
-			<div class="mb-3">
-				<label for="lname" class="block mb-1 font-bold text-gray-700">Last Name</label>
-				<input id="lname" type="text" bind:value={lastName} required 
-                    class="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none" />
+			<div class="form-group">
+				<label for="lname">Last Name</label>
+				<input id="lname" type="text" bind:value={lastName} required />
 			</div>
 			
-			<div class="mb-3">
-				<label for="age" class="block mb-1 font-bold text-gray-700">Age</label>
-				<input id="age" type="number" bind:value={age} required 
-                    class="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none" />
+			<div class="form-group">
+				<label for="age">Age</label>
+				<input id="age" type="number" bind:value={age} required />
 			</div>
 			
-			<div class="flex gap-2 mt-4">
-				<button type="submit" 
-                    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors cursor-pointer border-none">
-                    {editId ? 'Update' : 'Add'}
-                </button>
+			<div class="actions">
+				<button type="submit">{editId ? 'Update' : 'Add'}</button>
 				{#if editId}
-					<button type="button" onclick={cancelEdit}
-                        class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors cursor-pointer border-none">
-                        Cancel
-                    </button>
+					<button type="button" class="secondary" onclick={cancelEdit}>Cancel</button>
 				{/if}
 			</div>
 		</form>
 	</div>
 
-	<div class="bg-white border border-gray-200 p-5 rounded-lg mb-5 shadow-sm">
-		<h2 class="text-xl font-semibold mb-3">People List</h2>
-        <div class="overflow-x-auto">
-            <table class="w-full border-collapse">
-                <thead>
-                    <tr class="bg-gray-50 text-left">
-                        <th class="p-3 border-b border-gray-200 font-bold text-gray-700">ID</th>
-                        <th class="p-3 border-b border-gray-200 font-bold text-gray-700">First Name</th>
-                        <th class="p-3 border-b border-gray-200 font-bold text-gray-700">Last Name</th>
-                        <th class="p-3 border-b border-gray-200 font-bold text-gray-700">Age</th>
-                        <th class="p-3 border-b border-gray-200 font-bold text-gray-700">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {#each items as item}
-                        <tr class="hover:bg-gray-50">
-                            <td class="p-3 border-b border-gray-200">{item.id}</td>
-                            <td class="p-3 border-b border-gray-200">{item.firstName}</td>
-                            <td class="p-3 border-b border-gray-200">{item.lastName}</td>
-                            <td class="p-3 border-b border-gray-200">{item.age}</td>
-                            <td class="p-3 border-b border-gray-200">
-                                <button onclick={() => startEdit(item)} 
-                                    class="px-2 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 mr-2 cursor-pointer border-none">
-                                    Edit
-                                </button>
-                                <button onclick={() => deleteItem(item.id)}
-                                    class="px-2 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600 cursor-pointer border-none">
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    {/each}
-                    {#if items.length === 0}
-                        <tr>
-                            <td colspan="5" class="p-3 border-b border-gray-200 text-center text-gray-500">No data found</td>
-                        </tr>
-                    {/if}
-                </tbody>
-            </table>
-        </div>
+	<div class="card">
+		<h2>People List</h2>
+		<table>
+			<thead>
+				<tr>
+          <th>ID</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Age</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each items as item}
+					<tr>
+            <td>{item.id}</td>
+						<td>{item.firstName}</td>
+						<td>{item.lastName}</td>
+						<td>{item.age}</td>
+						<td>
+							<button class="small" onclick={() => startEdit(item)}>Edit</button>
+							<button class="small danger" onclick={() => deleteItem(item.id)}>Delete</button>
+						</td>
+					</tr>
+				{/each}
+				{#if items.length === 0}
+					<tr>
+						<td colspan="4" style="text-align: center;">No data found</td>
+					</tr>
+				{/if}
+			</tbody>
+		</table>
 	</div>
 </div>
+
+<style>
+	.container {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 20px;
+		font-family: sans-serif;
+	}
+	
+	h1 { margin-bottom: 20px; }
+	
+	.card {
+		border: 1px solid #ddd;
+		padding: 20px;
+		border-radius: 8px;
+		margin-bottom: 20px;
+		background: white;
+	}
+	
+	.form-group {
+		margin-bottom: 10px;
+	}
+	
+	label {
+		display: block;
+		margin-bottom: 5px;
+		font-weight: bold;
+	}
+	
+	input {
+		width: 100%;
+		padding: 8px;
+		box-sizing: border-box;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+	}
+	
+	.actions {
+		margin-top: 15px;
+		display: flex;
+		gap: 10px;
+	}
+	
+	button {
+		padding: 8px 16px;
+		background-color: #007bff;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+	
+	button:hover { background-color: #0056b3; }
+	
+	button.secondary {
+		background-color: #6c757d;
+	}
+	button.secondary:hover { background-color: #5a6268; }
+	
+	button.danger {
+        background-color: #dc3545;
+	}
+	button.danger:hover { background-color: #bd2130; }
+	
+	button.small {
+		padding: 4px 8px;
+		font-size: 0.9em;
+	}
+	
+	table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	
+	th, td {
+		padding: 10px;
+		border-bottom: 1px solid #ddd;
+		text-align: left;
+	}
+	
+	th {
+		background-color: #f8f9fa;
+	}
+</style>
