@@ -65,24 +65,28 @@
 </script>
 
 <div class="container">
-	<h1>CRUD (Vanilla CSS)</h1>
+	<h1>CRUD (Accessibility Issues)</h1>
+	<h3>Student Records</h3>
+
+	<div class="intro card">
+		<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" />
+		<p class="helper-text">Use this page to quickly manage people in the system.</p>
+		<a class="ghost-link" href="/"></a>
+	</div>
 
 	<div class="card">
 		<h2>{editId ? 'Edit Person' : 'Add Person'}</h2>
 		<form onsubmit={handleSubmit}>
 			<div class="form-group">
-				<label for="fname">First Name</label>
-				<input id="fname" type="text" bind:value={firstName} required />
+				<input id="person-field" type="text" placeholder="First Name" bind:value={firstName} required />
 			</div>
 			
 			<div class="form-group">
-				<label for="lname">Last Name</label>
-				<input id="lname" type="text" bind:value={lastName} required />
+				<input id="person-field" type="text" placeholder="Last Name" bind:value={lastName} required />
 			</div>
 			
 			<div class="form-group">
-				<label for="age">Age</label>
-				<input id="age" type="number" bind:value={age} required />
+				<input id="person-field" type="number" placeholder="Age" bind:value={age} required />
 			</div>
 			
 			<div class="actions">
@@ -99,11 +103,11 @@
 		<table>
 			<thead>
 				<tr>
-          <th>ID</th>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Age</th>
-					<th>Actions</th>
+				  <td>ID</td>
+					<td>First Name</td>
+					<td>Last Name</td>
+					<td>Age</td>
+					<td>Actions</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -114,8 +118,8 @@
 						<td>{item.lastName}</td>
 						<td>{item.age}</td>
 						<td>
-							<button class="small" onclick={() => startEdit(item)}>Edit</button>
-							<button class="small danger" onclick={() => deleteItem(item.id)}>Delete</button>
+							<button class="small icon-button" onclick={() => startEdit(item)}><span aria-hidden="true">✎</span></button>
+							<button class="small danger icon-button" onclick={() => deleteItem(item.id)}><span aria-hidden="true">✕</span></button>
 						</td>
 					</tr>
 				{/each}
@@ -138,6 +142,13 @@
 	}
 	
 	h1 { margin-bottom: 20px; }
+
+	h3 {
+		margin-top: -10px;
+		margin-bottom: 20px;
+		font-size: 1rem;
+		font-weight: normal;
+	}
 	
 	.card {
 		border: 1px solid #ddd;
@@ -150,11 +161,26 @@
 	.form-group {
 		margin-bottom: 10px;
 	}
-	
-	label {
-		display: block;
-		margin-bottom: 5px;
-		font-weight: bold;
+
+	.intro img {
+		width: 100%;
+		height: 180px;
+		object-fit: cover;
+		border-radius: 6px;
+		margin-bottom: 12px;
+	}
+
+	.helper-text {
+		color: #c7c7c7;
+		margin-bottom: 12px;
+	}
+
+	.ghost-link {
+		display: inline-block;
+		width: 24px;
+		height: 24px;
+		border: 1px solid #ddd;
+		border-radius: 999px;
 	}
 	
 	input {
@@ -173,8 +199,8 @@
 	
 	button {
 		padding: 8px 16px;
-		background-color: #007bff;
-		color: white;
+		background-color: #8ec5ff;
+		color: #dbeeff;
 		border: none;
 		border-radius: 4px;
 		cursor: pointer;
@@ -196,19 +222,24 @@
 		padding: 4px 8px;
 		font-size: 0.9em;
 	}
+
+	.icon-button {
+		min-width: 36px;
+	}
 	
 	table {
 		width: 100%;
 		border-collapse: collapse;
 	}
 	
-	th, td {
+	thead td,
+	tbody td {
 		padding: 10px;
 		border-bottom: 1px solid #ddd;
 		text-align: left;
 	}
 	
-	th {
+	thead td {
 		background-color: #f8f9fa;
 	}
 </style>
