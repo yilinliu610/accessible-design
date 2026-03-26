@@ -69,27 +69,30 @@
 	<h3>Student Records</h3>
 
 	<div class="intro card">
-		<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" />
+		<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="A person pointing at a tablet screen"/>
 		<p class="helper-text">Use this page to quickly manage people in the system.</p>
 		<p><a class="text-link" href="/">Click here</a> to review the latest updates.</p>
-		<a class="ghost-link" href="/"></a>
+		<a class="ghost-link" href="/">Back to Home</a>
 	</div>
 
 	<div class="card">
 		<h2>{editId ? 'Edit Person' : 'Add Person'}</h2>
-		<h4 class="visually-hidden"></h4>
-		<form onsubmit={handleSubmit} aria-describedby="missing-form-help">
+		<h4 class="visually-hidden">Form to add a new person</h4>
+		<form onsubmit={handleSubmit} >
 			<fieldset>
 				<div class="form-group">
-					<input id="person-field" type="text" placeholder="First Name" bind:value={firstName} required />
+					<label for="first-name">First Name</label>
+					<input id="first-name" type="text" placeholder="First Name" bind:value={firstName} required />
 				</div>
 				
 				<div class="form-group">
-					<input id="person-field" type="text" placeholder="Last Name" bind:value={lastName} required />
+					<label for="last-name">Last Name</label>
+					<input id="last-name" type="text" placeholder="Last Name" bind:value={lastName} required />
 				</div>
 				
 				<div class="form-group">
-					<input id="person-field" type="number" placeholder="Age" bind:value={age} required />
+					<label for="age">Age</label>
+					<input id="age" type="number" placeholder="Age" bind:value={age} required />
 				</div>
 			</fieldset>
 			
@@ -122,8 +125,8 @@
 						<td>{item.lastName}</td>
 						<td>{item.age}</td>
 						<td>
-							<button class="small icon-button" tabindex="2" onclick={() => startEdit(item)}><span aria-hidden="true">✎</span></button>
-							<button class="small danger icon-button" tabindex="4" onclick={() => deleteItem(item.id)}><span aria-hidden="true">✕</span></button>
+							<button class="small icon-button"  onclick={() => startEdit(item)}><span aria-hidden="true">✎</span></button>
+							<button class="small danger icon-button"  onclick={() => deleteItem(item.id)}><span aria-hidden="true">✕</span></button>
 						</td>
 					</tr>
 				{/each}
@@ -181,7 +184,7 @@
 	}
 
 	.helper-text {
-		color: #c7c7c7;
+		color: rgb(50, 50, 50);
 		margin-bottom: 12px;
 	}
 
@@ -213,8 +216,8 @@
 	
 	button {
 		padding: 8px 16px;
-		background-color: #8ec5ff;
-		color: #dbeeff;
+		background-color: #346eac;
+		color: rgb(255, 255, 255);
 		border: none;
 		border-radius: 4px;
 		cursor: pointer;
